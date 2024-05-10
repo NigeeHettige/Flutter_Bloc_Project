@@ -1,23 +1,25 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutterbloc/features/Icon/wishlistIcon.dart';
-import 'package:flutterbloc/features/home/bloc/home_bloc.dart';
-import 'package:flutterbloc/features/home/model/home_product_data_model.dart';
+import 'package:flutterbloc/features/cart/bloc/cart_bloc.dart';
 
-class ProductPost extends StatefulWidget {
+import 'package:flutterbloc/features/home/model/home_product_data_model.dart';
+import 'package:flutterbloc/features/wishlist/bloc/wishlist_bloc.dart';
+
+class WishListPost extends StatefulWidget {
   final ProductDataModel productdatamodel;
-  final HomeBloc homeBloc;
+  final WishlistBloc wishlistBloc;
  
 
-  const ProductPost(
-      {super.key, required this.productdatamodel, required this.homeBloc});
+  const WishListPost(
+      {super.key, required this.productdatamodel, required this.wishlistBloc});
 
   @override
-  State<ProductPost> createState() => _ProductPostState();
+  State<WishListPost> createState() => _WishListPostState();
 }
 
-class _ProductPostState extends State<ProductPost> {
-  bool isAddedToWishlist = false;
+class _WishListPostState extends State<WishListPost> {
+   bool isAddedToWishlist = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,35 +58,31 @@ class _ProductPostState extends State<ProductPost> {
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               ),
               const Spacer(),
-              WishListIconButton(
-                  onPressed: () {
-                    widget.homeBloc.add(HomeProductWishlistButtonClickedEvent(
-                        clickedProduct: widget.productdatamodel));
-
-                      setState(() {
-                    isAddedToWishlist = !isAddedToWishlist;
-                  });
-
-                  },
-                  isAddedToWishList: isAddedToWishlist)
-
               // IconButton(
               //     onPressed: () {
-              //       homeBloc.add(HomeProductWishlistButtonClickedEvent(
-              //           clickedProduct: productdatamodel));
+              //       widget.wishlistBloc.add(WishlistRemoveItemEvent(productDataModel: widget.productdatamodel));
               //     },
               //     icon: const Icon(
               //       Icons.favorite_border_outlined,
               //       color: Colors.black,
               //     )),
-              ,
+
+                   WishListIconButton(
+                  onPressed: () {
+                    widget.wishlistBloc.add(WishlistRemoveItemEvent(productDataModel: widget.productdatamodel));
+
+                      setState(() {
+                    isAddedToWishlist = isAddedToWishlist;
+                  });
+
+                  },
+                  isAddedToWishList: !isAddedToWishlist),
               IconButton(
                   onPressed: () {
-                    widget.homeBloc.add(HomeProductCartButtonClickedEvent(
-                        clickedProduct: widget.productdatamodel));
+                  //  wishlistBloc.add(WishlistRemoveItemEvent(productDataModel: productdatamodel));
                   },
                   icon: const Icon(
-                    Icons.shopping_cart_checkout_outlined,
+                    Icons.shopping_cart,
                     color: Colors.black,
                   )),
             ],

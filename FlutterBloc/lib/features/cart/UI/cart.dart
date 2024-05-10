@@ -24,7 +24,12 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart Items'),
+        title: const Text(
+          'Cart Items',
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
+        ),
+        backgroundColor: const Color.fromARGB(255, 1, 102, 109),
       ),
       body: BlocConsumer<CartBloc, CartState>(
         bloc: cartBloc,

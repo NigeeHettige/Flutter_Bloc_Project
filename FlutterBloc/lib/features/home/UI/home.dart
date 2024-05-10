@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
     return BlocConsumer<HomeBloc, HomeState>(
       bloc: homeBloc,
       listenWhen: (previous, current) => current is HomeActionState,
-      buildWhen: (previous, current) => current is! HomeActionState,
+      buildWhen: (previous, current) => current is !HomeActionState,
       listener: (context, state) {
         if (state is HomeNavigateToWishlistPageActionState) {
           Navigator.push(context,
